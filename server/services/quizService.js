@@ -8,13 +8,20 @@ async function createQuiz(data, userId) {
 }
 
 async function getQuizzes() {
-  return prisma.quiz.findMany();
+  return prisma.quiz.findMany({
+    include: {
+      questions: true,
+    },
+  });
 }
 
 async function getQuizById(id) {
   return prisma.quiz.findUnique({
     where: {
       id: parseInt(id),
+    },
+    include: {
+      questions: true,
     },
   });
 }
